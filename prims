@@ -1,0 +1,32 @@
+INF = 9999999  # A large number to represent infinity
+
+n = int(input("Enter number of vertices: "))     # Input: number of vertices
+
+print("Enter adjacency matrix (0 if no edge):")  # Input: adjacency matrix
+graph = []
+for _ in range(n):
+    graph.append(list(map(int, input().split())))
+
+# Track visited vertices
+selected = [False] * n
+selected[0] = True  # Start from node 1 (index 0)
+
+print("\nEdge : Weight")
+
+# Prim's algorithm main loop
+for _ in range(n - 1):
+    minimum = INF
+    x = 0
+    y = 0
+
+    for i in range(n):
+        if selected[i]:
+            for j in range(n):
+                if not selected[j] and graph[i][j]:
+                    if minimum > graph[i][j]:
+                        minimum = graph[i][j]
+                        x = i
+                        y = j
+
+    print(f"{x+1} - {y+1} : {graph[x][y]}")
+    selected[y] = True 
