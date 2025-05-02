@@ -1,0 +1,40 @@
+import re
+
+def redbus_chatbot_response(user_input):
+    user_input = user_input.lower()
+
+    responses = {
+        r"\b(1|hello|hi|hey)\b": "Hello! Welcome to RedBus. How can I assist you with your travel today?",
+        r"\b(2|how are you)\b": "I'm great! Ready to help you find the best bus tickets.",
+        r"\b(3|book|booking|reserve)\b": "Sure! Please provide your source, destination, and date of travel.",
+        r"\b(4|available buses|bus availability)\b": "Please mention your route and travel date to check available buses.",
+        r"\b(5|timing|schedule)\b": "Buses run from 6 AM to 11 PM. Let me know your preferred time.",
+        r"\b(6|fare|price|cost)\b": "Prices vary based on the operator and time. Share your travel details to get accurate fares.",
+        r"\b(7|cancel|cancellation)\b": "To cancel your ticket, please provide your booking ID.",
+        r"\b(8|refund)\b": "Refunds are processed within 3–5 business days after cancellation.",
+        r"\b(9|payment|methods)\b": "We accept UPI, net banking, debit/credit cards, and wallets.",
+        r"\b(10|offers|discount)\b": "We have exciting discounts! Use code TRAVEL10 for 10% off.",
+        r"\b(11|status|track|ticket status)\b": "Please share your booking ID to check ticket status.",
+        r"\b(12|operator|bus types)\b": "We have AC, Non-AC, Sleeper, and Volvo buses available.",
+        r"\b(13|seat|seats|available seat)\b": "Please provide travel details to check seat availability.",
+        r"\b(14|help|support|customer care)\b": "You can call our 24/7 support at 1800-123-4567.",
+        r"\b(15|location|address)\b": "RedBus is available across all major cities in India.",
+        r"\b(16|bye|exit|goodbye)\b": "Goodbye! Have a safe and happy journey 🚌✨"
+    }
+
+    for pattern, response in responses.items():
+        if re.search(pattern, user_input):
+            return response
+
+    return "I'm sorry, I didn't catch that. Could you please rephrase or ask a specific question about bus booking?"
+
+# Chatbot interaction loop
+print("Welcome to the RedBus Chatbot! Type 'exit' to end the conversation.")
+
+while True:
+    user_message = input("You: ")
+    if user_message.lower() in ["bye", "exit", "goodbye"]:
+        print("Chatbot: Goodbye! Have a safe and happy journey 🚌✨")
+        break
+    response = redbus_chatbot_response(user_message)
+    print("Chatbot:", response)
