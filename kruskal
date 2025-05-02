@@ -1,0 +1,23 @@
+def find(p, x):
+    if p[x] != x: p[x] = find(p, p[x])
+    return p[x]
+
+def kruskal(n, edges):
+    p = list(range(n))
+    mst, cost = [], 0
+    for u, v, w in sorted(edges, key=lambda x: x[2]):
+        ru, rv = find(p, u), find(p, v)
+        if ru != rv:
+            p[rv] = ru
+            mst.append((u, v, w))
+            cost += w
+    return mst, cost
+
+n = int(input("Vertices: "))
+e = int(input("Edges: "))
+edges = [tuple(map(int, input().split())) for _ in range(e)]
+mst, total = kruskal(n, edges)
+
+print("\nMST Edges:")
+for u, v, w in mst: print(f"{u} -- {v} == {w}")
+print("Total weight:",total)
