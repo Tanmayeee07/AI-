@@ -1,0 +1,32 @@
+n = int(input("Number of vertices: "))
+e = int(input("Number of edges: "))
+
+# Create adjacency matrix
+graph = [[0]*n for _ in range(n)]
+for _ in range(e):
+    u, v, w = map(int, input().split())
+    graph[u][v] = w
+    graph[v][u] = w  # remove this line if graph is directed
+
+start = int(input("Start vertex: "))
+
+# Initialize distances and visited list
+dist = [999999] * n
+visited = [False] * n
+dist[start] = 0
+
+# Dijkstra's algorithm
+for _ in range(n):
+    u = -1
+    for i in range(n):
+        if not visited[i] and (u == -1 or dist[i] < dist[u]):
+            u = i
+    visited[u] = True
+    for v in range(n):
+        if graph[u][v] and not visited[v]:
+            if dist[u] + graph[u][v] < dist[v]:
+                dist[v] = dist[u] + graph[u][v]
+
+# Print results
+for i in range(n):
+    print(f"{start} -> {i} = {dist[i]}")
